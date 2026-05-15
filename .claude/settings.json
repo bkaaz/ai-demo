@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx ng serve*)",
+      "Bash(npx ng build*)",
+      "Bash(npx ng lint*)",
+      "Bash(npx ng generate*)",
+      "Bash(npx playwright test*)",
+      "Bash(npm install*)",
+      "Bash(npm run*)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(ls *)",
+      "Bash(cat *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)"
+    ]
+  },
+  "hooks": {
+    "PreCommit": [
+      {
+        "command": "npx ng lint --fix",
+        "description": "Auto-fix lint errors before commit"
+      }
+    ],
+    "PostEdit": [
+      {
+        "command": "npx ng build --configuration=development 2>&1 | tail -5",
+        "description": "Verify build after edits",
+        "pattern": "src/**/*.ts"
+      }
+    ]
+  }
+}

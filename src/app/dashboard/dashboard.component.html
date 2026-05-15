@@ -1,0 +1,59 @@
+<div class="dashboard" data-testid="dashboard">
+  <h1 data-testid="page-title">Dashboard</h1>
+
+  <div class="stats-grid" data-testid="stats-grid">
+    @for (stat of stats(); track stat.title) {
+      <mat-card class="stat-card" [attr.data-testid]="'stat-' + stat.title.toLowerCase().replace(' ', '-')">
+        <mat-card-content>
+          <div class="stat-content">
+            <div class="stat-info">
+              <span class="stat-title">{{ stat.title }}</span>
+              <span class="stat-value">{{ stat.value }}</span>
+              <span class="stat-trend">{{ stat.trend }}</span>
+            </div>
+            <mat-icon class="stat-icon" [style.color]="stat.color">{{ stat.icon }}</mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+
+  <div class="charts-section">
+    <mat-card data-testid="activity-chart">
+      <mat-card-header>
+        <mat-card-title>Monthly Activity</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-container">
+          @for (value of chartData(); track $index) {
+            <div class="chart-bar-wrapper">
+              <div
+                class="chart-bar"
+                [style.height.%]="getBarHeight(value)"
+                [attr.data-testid]="'chart-bar-' + $index"
+              ></div>
+              <span class="chart-label">{{ chartLabels[$index] }}</span>
+            </div>
+          }
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card data-testid="events-list">
+      <mat-card-header>
+        <mat-card-title>Recent Events</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          @for (event of events(); track event.message) {
+            <mat-list-item [attr.data-testid]="'event-item'">
+              <mat-icon matListItemIcon>{{ event.icon }}</mat-icon>
+              <span matListItemTitle>{{ event.message }}</span>
+              <span matListItemLine>{{ event.timestamp | date: 'short' }}</span>
+            </mat-list-item>
+          }
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sidenav-container {
+  flex: 1;
+}
+
+mat-sidenav {
+  width: 240px;
+}
+
+.content {
+  padding: 24px;
+}
+
+.active-link {
+  background-color: rgba(0, 0, 0, 0.05);
+}

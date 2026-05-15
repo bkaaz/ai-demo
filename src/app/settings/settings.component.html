@@ -1,0 +1,60 @@
+<div class="settings-page" data-testid="settings-page">
+  <h1 data-testid="page-title">Settings</h1>
+
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Profile Settings</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()" data-testid="settings-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" data-testid="name-input" />
+          @if (settingsForm.get('name')?.hasError('required') && settingsForm.get('name')?.touched) {
+            <mat-error data-testid="name-required-error">Name is required</mat-error>
+          }
+          @if (settingsForm.get('name')?.hasError('minlength') && settingsForm.get('name')?.touched) {
+            <mat-error data-testid="name-minlength-error">Name must be at least 3 characters</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" data-testid="email-input" />
+          @if (settingsForm.get('email')?.hasError('required') && settingsForm.get('email')?.touched) {
+            <mat-error data-testid="email-required-error">Email is required</mat-error>
+          }
+          @if (settingsForm.get('email')?.hasError('email') && settingsForm.get('email')?.touched) {
+            <mat-error data-testid="email-pattern-error">Please enter a valid email</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="toggle-row">
+          <mat-slide-toggle formControlName="notifications" data-testid="notifications-toggle">
+            Email Notifications
+          </mat-slide-toggle>
+        </div>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Theme</mat-label>
+          <mat-select formControlName="theme" data-testid="theme-select">
+            @for (theme of themes; track theme) {
+              <mat-option [value]="theme">{{ theme }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit" data-testid="save-button">
+            <mat-icon>save</mat-icon>
+            Save Settings
+          </button>
+          <button mat-stroked-button type="button" (click)="onReset()" data-testid="reset-button">
+            <mat-icon>refresh</mat-icon>
+            Reset
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

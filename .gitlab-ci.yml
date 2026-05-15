@@ -1,0 +1,82 @@
+image: node:22
+
+stages:
+  - install
+  - lint
+  - build
+  - test:unit
+  - test:e2e
+
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - node_modules/
+    - .angular/cache/
+
+install:
+  stage: install
+  script:
+    - npm ci
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 1 hour
+
+lint:
+  stage: lint
+  needs: [install]
+  script:
+    - npx ng lint
+
+build:
+  stage: build
+  needs: [install]
+  script:
+    - npx ng build --configuration=production
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 day
+
+test:unit:
+  stage: test:unit
+  needs: [install]
+  script:
+    - echo "Unit test framework not configured — skipping"
+    - echo "To enable, install Jest or Karma and add test configuration"
+  allow_failure: true
+
+test:e2e:
+  stage: test:e2e
+  needs: [build]
+  image: mcr.microsoft.com/playwright:v1.60.0-noble
+  variables:
+    CI: "true"
+  script:
+    - npm ci
+    - npx ng serve --port 4200 &
+    - npx wait-on http://localhost:4200 --timeout 120000
+    - npx playwright test --reporter=junit,html
+  artifacts:
+    when: always
+    paths:
+      - playwright-report/
+      - test-results/
+    reports:
+      junit: test-results/junit.xml
+    expire_in: 7 days
+
+test:e2e:mr:
+  extends: test:e2e
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  artifacts:
+    when: always
+    paths:
+      - playwright-report/
+      - test-results/
+    reports:
+      junit: test-results/junit.xml
+    expire_in: 30 days
