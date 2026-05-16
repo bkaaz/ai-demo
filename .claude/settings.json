@@ -5,9 +5,9 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "Evaluate the user's prompt below. Provide exactly 1-2 sentences of feedback:\n- One concrete improvement suggestion (be specific: name a file, pattern, or technique)\n- A Claude Code feature that could help (plan mode, skills, subagents, hooks, @file references, /compact, /rewind, etc.)\n\nSkip feedback (respond with just 'OK') when:\n- The prompt is already clear and specific\n- It's a short follow-up in an ongoing conversation (e.g. 'yes', 'do it', 'looks good')\n- The user is fixing a bug with a pasted error message\n- The user explicitly asks to skip feedback\n\nEvaluation criteria:\n1. Specificity — does it name files, functions, errors, or patterns?\n2. Context — does it explain what exists, what's needed, and why?\n3. Scope — not too broad ('refactor everything') or too narrow ('change line 5') without context?\n4. Feature awareness — could the user benefit from plan mode, a skill, a subagent, or @file references?\n\nUser's prompt: $ARGUMENTS",
-            "timeout": 15,
-            "statusMessage": "Evaluating prompt quality..."
+            "prompt": "Evaluate the user's prompt below. You MUST respond with valid JSON only, no other text.\n\nRules:\n- For short follow-ups ('yes', 'tak', 'do it', 'ok', 'continue', 'commit', confirmations under 5 words): respond {\"hookSpecificOutput\":{\"additionalContext\":\"\"}}\n- For clear, specific prompts that don't need improvement: respond {\"hookSpecificOutput\":{\"additionalContext\":\"\"}}\n- For prompts that could be improved: respond {\"hookSpecificOutput\":{\"additionalContext\":\"Prompt tip: <1 sentence suggestion + Claude Code feature if applicable>\"}}\n\nNEVER block the prompt. NEVER return a stopReason. Always let the prompt through.\n\nEvaluation criteria (only for non-trivial prompts):\n1. Specificity — does it name files, functions, errors?\n2. Context — does it explain what exists and what's needed?\n3. Feature awareness — could plan mode, skills, subagents, @file references help?\n\nUser's prompt: $ARGUMENTS",
+            "timeout": 10,
+            "statusMessage": "Prompt coaching..."
           }
         ]
       }
