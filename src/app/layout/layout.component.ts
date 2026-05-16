@@ -1,4 +1,4 @@
-import { Component, signal, ViewChild } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
@@ -35,7 +35,9 @@ export class LayoutComponent {
     { path: '/settings', label: 'Settings', icon: 'settings' },
   ];
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  private breakpointObserver = inject(BreakpointObserver);
+
+  constructor() {
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe((result) => {
       this.isMobile.set(result.matches);
       this.sidenavOpened.set(!result.matches);
