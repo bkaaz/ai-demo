@@ -2,6 +2,25 @@
 
 This file provides context and rules for AI agents (Claude Code subagents) working on this project.
 
+## Custom Agents (`.claude/agents/`)
+
+Full agent personas with distinct expertise areas. Each agent is a conversational specialist — it asks questions, makes decisions, and explains reasoning. Unlike one-shot commands (`/generate-component`), agents maintain context throughout the session.
+
+| Agent | File | Specialty |
+|-------|------|-----------|
+| UI Component Architect | `ui-architect.md` | Designs and builds components with full system awareness |
+| E2E Test Engineer | `e2e-test-engineer.md` | Writes and debugs Playwright tests strategically |
+| Code Reviewer | `code-reviewer.md` | Interactive review with tradeoff discussion |
+| Design System Guardian | `design-system.md` | Visual consistency — theme, spacing, typography |
+| Accessibility Auditor | `accessibility-auditor.md` | WCAG 2.1 AA compliance audits |
+
+### Agents vs Commands
+
+- **Commands** (`.claude/commands/`) — one-shot recipes invoked with `/command-name args`. Execute a script and produce output.
+- **Agents** (`.claude/agents/`) — persistent personas you converse with. They reason, ask questions, and exercise judgment across a session.
+
+---
+
 ## Component Generator Agent
 
 ### Role
