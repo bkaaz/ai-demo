@@ -187,7 +187,106 @@ Key facts about subagents:
 
 ---
 
-## 9. Presentation Tips
+## 9. Complete Demo Flow (Step-by-Step)
+
+### Phase 1: Task Start (show: CLAUDE.md, /explore)
+```
+"Explain how the dashboard component works and what patterns it uses"
+```
+- Claude reads CLAUDE.md automatically (project onboarding)
+- Use `/explore` for deeper codebase analysis
+- **Shows:** AI understands project context without manual explanation
+
+### Phase 2: Planning (show: plan mode, AskUserQuestion)
+```
+Switch to plan mode: Shift+Tab
+"I want to add a notifications panel to the dashboard.
+ Interview me about requirements, then create a plan."
+```
+- Claude asks questions via AskUserQuestion tool
+- Creates implementation plan
+- Ctrl+G to open plan in VS Code editor
+- **Shows:** AI researches before coding, collaborative planning
+
+### Phase 3: Design (show: /generate-component skill)
+```
+Switch to acceptEdits: Shift+Tab
+/generate-component notifications
+```
+- Claude scaffolds component following project patterns (signals, Material, data-testid)
+- **Shows:** Reusable skills with project-specific templates
+
+### Phase 4: Implementation (show: auto coding)
+```
+"Implement the notifications panel from your plan.
+ Follow existing patterns in the dashboard component."
+```
+- Claude generates full component code
+- **Shows:** AI follows existing patterns, writes production-quality code
+
+### Phase 5: Testing (show: /write-tests, auto-approved Playwright)
+```
+/write-tests
+"Run the E2E tests and fix any failures"
+```
+- Tests run without permission popup (pre-approved)
+- **Shows:** Test generation + auto-execution + self-healing
+
+### Phase 6: Code Review (show: /review skill OR @Code Reviewer agent)
+```
+/review
+```
+- Severity-ranked report (Critical/Important/Suggestion)
+- **Shows:** AI quality gate before merge
+
+### Phase 7: Commit & PR (show: git + GitHub integration)
+```
+"Commit with a descriptive message, create a feature branch, and open a PR"
+```
+- Claude: git add → commit → branch → push → gh pr create
+- No permission popups (all pre-approved)
+- **Shows:** Full git integration, PR creation from CLI
+
+### Phase 8: CI/CD (show: GitHub Actions)
+- Pipeline triggers automatically on PR
+- Show Actions tab in browser with live status
+- Status checks appear on PR (green/red)
+- **Shows:** End-to-end automation, AI + CI/CD together
+
+### Optional Bonus Demos (if time permits)
+1. **Subagent parallel work:** "Use the Accessibility Auditor to check the new component"
+2. **Checkpoint/undo:** Esc+Esc or `/rewind` to revert changes
+3. **Hook demo:** Show prompt coaching feedback appearing on prompts
+4. **`/compact` or `/clear`:** Context management between demo sections
+
+---
+
+## 10. Pre-Demo Checklist
+
+- [ ] `git status` is clean (no uncommitted changes)
+- [ ] `npx ng serve` works locally
+- [ ] `npx ng lint` passes
+- [ ] `gh auth status` is authenticated
+- [ ] VS Code is open with the project
+- [ ] Browser has GitHub repo open (Actions tab)
+- [ ] Terminal font size large enough for presentation
+
+---
+
+## 11. Current Configuration Inventory
+
+| Component | Count | Status |
+|-----------|-------|--------|
+| Skills | 7 (`/explore`, `/generate-component`, `/add-route`, `/write-tests`, `/review`, `/refactor`, `claude-guide`) | Ready |
+| Agents | 3 (Accessibility Auditor, Code Reviewer, Design System Guardian) | Ready |
+| Hooks | 1 (UserPromptSubmit prompt coaching) | Ready |
+| Permissions | git, gh, Angular CLI, Playwright, file ops pre-approved | Ready |
+| CI/CD | GitHub Actions (lint → build → test-e2e) | Ready |
+| Docs | CLAUDE.md + PRESENTATION-SETUP.md + GITHUB-ACTIONS-GUIDE.md | Ready |
+
+---
+
+## 12. Presentation Tips
 
 - Use `/clear` between demo sections — keeps context clean
 - Use `Esc` to stop Claude mid-action if off-track (shows control)
