@@ -1,93 +1,93 @@
 # AI Workflows — Reusable Prompts
 
-Gotowe prompty do użycia z Claude Code. Kopiuj i wklej, podmień placeholdery w `{{...}}`.
+Ready-to-use prompts for Claude Code. Copy and paste, replace placeholders in `{{...}}`.
 
 ---
 
-## 1. Generowanie nowego komponentu
+## 1. Generate a new component
 
 ```
-Wygeneruj nowy standalone Angular component "{{NAZWA}}" w src/app/{{NAZWA}}/:
-- Użyj Angular Material: {{MATERIAL_COMPONENTS}}
-- Stan z signal(): {{OPIS_STANU}}
-- Template z @for/@if control flow
-- data-testid na każdym interaktywnym elemencie
-- SCSS ze zmiennymi Material theming
-- Responsywny layout (mobile-first)
+Generate a new standalone Angular component "{{NAME}}" in src/app/{{NAME}}/:
+- Use Angular Material: {{MATERIAL_COMPONENTS}}
+- State with signal(): {{STATE_DESCRIPTION}}
+- Template with @for/@if control flow
+- data-testid on every interactive element
+- SCSS with Material theming variables
+- Responsive layout (mobile-first)
 
-Wzoruj się na istniejących komponentach w src/app/dashboard/ i src/app/users/.
+Use existing components in src/app/dashboard/ and src/app/users/ as reference.
 ```
 
-### Przykład użycia:
+### Usage example:
 ```
-Wygeneruj nowy standalone Angular component "notifications" w src/app/notifications/:
-- Użyj Angular Material: mat-list, mat-badge, mat-icon-button
-- Stan z signal(): lista powiadomień, count nieprzeczytanych
-- Template z @for/@if control flow
-- data-testid na każdym interaktywnym elemencie
-- SCSS ze zmiennymi Material theming
-- Responsywny layout (mobile-first)
-```
-
----
-
-## 2. Generowanie testów E2E
-
-```
-Napisz testy Playwright E2E dla komponentu {{NAZWA}}:
-
-1. Stwórz Page Object w e2e/pages/{{NAZWA}}.page.ts:
-   - Lokatory z data-testid
-   - Metody akcji (click, fill, navigate)
-   - Gettery dla asercji
-
-2. Stwórz testy w e2e/tests/{{NAZWA}}.spec.ts:
-   - {{LISTA_SCENARIUSZY}}
-   - Użyj beforeEach z goto()
-   - Testuj happy path + edge cases
-   - Każdy test niezależny (brak shared state)
-
-Wzoruj się na e2e/pages/users.page.ts i e2e/tests/users.spec.ts.
+Generate a new standalone Angular component "notifications" in src/app/notifications/:
+- Use Angular Material: mat-list, mat-badge, mat-icon-button
+- State with signal(): notification list, unread count
+- Template with @for/@if control flow
+- data-testid on every interactive element
+- SCSS with Material theming variables
+- Responsive layout (mobile-first)
 ```
 
 ---
 
-## 3. Code Review
+## 2. Generate E2E tests
 
 ```
-Zrób code review aktualnych zmian na branchu:
+Write Playwright E2E tests for the "{{NAME}}" component:
+
+1. Create Page Object in e2e/pages/{{NAME}}.page.ts:
+   - Locators from data-testid
+   - Action methods (click, fill, navigate)
+   - Getters for assertions
+
+2. Create tests in e2e/tests/{{NAME}}.spec.ts:
+   - {{LIST_OF_SCENARIOS}}
+   - Use beforeEach with goto()
+   - Test happy path + edge cases
+   - Each test independent (no shared state)
+
+Use e2e/pages/users.page.ts and e2e/tests/users.spec.ts as reference.
+```
+
+---
+
+## 3. Code review
+
+```
+Review the current branch changes:
 
 Checklist:
-- [ ] Standalone components (bez NgModules)
-- [ ] Signals do stanu (nie RxJS Subjects)
-- [ ] data-testid na interaktywnych elementach
-- [ ] Poprawne typy TypeScript (brak any)
+- [ ] Standalone components (no NgModules)
+- [ ] Signals for state (not RxJS Subjects)
+- [ ] data-testid on interactive elements
+- [ ] Correct TypeScript types (no any)
 - [ ] Error handling
 - [ ] Accessibility (ARIA labels, keyboard nav)
 - [ ] Responsive design
-- [ ] Brak hardcoded strings
+- [ ] No hardcoded strings
 
-Zgłoś: krytyczne > ważne > sugestie.
-Dla każdego issue podaj plik:linia i proponowany fix.
+Report: critical > important > suggestions.
+For each issue provide file:line and proposed fix.
 ```
 
 ---
 
-## 4. Refaktoring
+## 4. Refactoring
 
 ```
-Zrefaktoruj {{PLIK_LUB_KOMPONENT}}:
+Refactor {{FILE_OR_COMPONENT}}:
 
-Cel: {{CEL_REFAKTORINGU}}
+Goal: {{REFACTORING_GOAL}}
 
-Zasady:
-- Zachowaj wszystkie data-testid
-- Nie zmieniaj publicznego API komponentu
-- Uruchom testy przed i po: npx playwright test
-- Zachowaj bundle size (nie dodawaj importów)
-- Wyciągnij shared logic do utility functions
+Rules:
+- Preserve all data-testid attributes
+- Don't change public component API without updating tests
+- Run tests before AND after: npx playwright test
+- Keep bundle size in mind (don't add unnecessary imports)
+- Extract shared logic into utility functions
 
-Pokaż diff przed i po.
+Show diff before and after.
 ```
 
 ---
@@ -95,34 +95,34 @@ Pokaż diff przed i po.
 ## 5. Debugging
 
 ```
-Zdebuguj problem: {{OPIS_PROBLEMU}}
+Debug the problem: {{PROBLEM_DESCRIPTION}}
 
-Kroki:
-1. Odtwórz problem (opisz jak)
-2. Znajdź root cause (sprawdź logi, network, stan)
-3. Zaproponuj fix
-4. Sprawdź czy fix nie psuje istniejących testów
+Steps:
+1. Reproduce the problem (describe how)
+2. Find root cause (check logs, network, state)
+3. Propose fix
+4. Verify fix doesn't break existing tests
 
-Kontekst:
-- Plik: {{PLIK}}
-- Oczekiwane zachowanie: {{OCZEKIWANE}}
-- Aktualne zachowanie: {{AKTUALNE}}
+Context:
+- File: {{FILE}}
+- Expected behavior: {{EXPECTED}}
+- Actual behavior: {{ACTUAL}}
 ```
 
 ---
 
-## 6. Dodanie route (nowa strona)
+## 6. Add a route (new page)
 
 ```
-Dodaj nowy lazy-loaded route "{{NAZWA}}":
+Add a new lazy-loaded route "{{NAME}}":
 
-1. Stwórz komponent w src/app/{{NAZWA}}/
-2. Dodaj route w app.routes.ts (lazy loadComponent)
-3. Dodaj link w layout sidenav (icon: {{ICON}})
-4. Dodaj data-testid="nav-{{NAZWA}}" na link
-5. Stwórz basic Page Object i test nawigacji
+1. Create component in src/app/{{NAME}}/
+2. Add route in app.routes.ts (lazy loadComponent)
+3. Add link in layout sidenav (icon: {{ICON}})
+4. Add data-testid="nav-{{NAME}}" on the link
+5. Create basic Page Object and navigation test
 
-Wzoruj się na istniejących routes w app.routes.ts.
+Use existing routes in app.routes.ts as reference.
 ```
 
 ---
@@ -130,21 +130,21 @@ Wzoruj się na istniejących routes w app.routes.ts.
 ## 7. Subagent: Parallel Exploration
 
 ```
-Uruchom równolegle:
+Run in parallel:
 
-Agent 1 (Explore): Znajdź wszystkie komponenty używające signal() i pokaż jak zarządzają stanem
-Agent 2 (Explore): Sprawdź pokrycie data-testid — które interaktywne elementy nie mają testid
-Agent 3 (Plan): Zaplanuj implementację {{NOWY_FEATURE}}
+Agent 1 (Explore): Find all components using signal() and show how they manage state
+Agent 2 (Explore): Check data-testid coverage — which interactive elements lack testid
+Agent 3 (Plan): Plan implementation of {{NEW_FEATURE}}
 
-Zbierz wyniki i podsumuj w 5 punktach.
+Collect results and summarize in 5 bullet points.
 ```
 
 ---
 
 ## Tips
 
-- **Kontekst jest kluczowy** — Claude Code automatycznie czyta CLAUDE.md, więc prompty mogą być krótsze
-- **Wzorce > instrukcje** — "wzoruj się na X" działa lepiej niż długie opisy
-- **Inkrementalne zmiany** — lepiej 3 małe prompty niż 1 wielki
-- **Testy jako walidacja** — zawsze kończ "uruchom npx playwright test"
-- **Subagenty do eksploracji** — użyj Explore agent zanim zaczniesz implementować
+- **Context is key** — Claude Code reads CLAUDE.md automatically, so prompts can be shorter
+- **Patterns > instructions** — "follow the pattern in X" works better than long descriptions
+- **Incremental changes** — 3 small prompts beat 1 giant one
+- **Tests as validation** — always end with "run npx playwright test"
+- **Subagents for exploration** — use Explore agent before implementing
