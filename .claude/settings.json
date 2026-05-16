@@ -18,20 +18,5 @@
       "Bash(git push --force*)",
       "Bash(git reset --hard*)"
     ]
-  },
-  "hooks": {
-    "PreCommit": [
-      {
-        "command": "npx ng lint --fix",
-        "description": "Auto-fix lint errors before commit"
-      }
-    ],
-    "PostEdit": [
-      {
-        "command": "npx ng build --configuration=development 2>&1 | tail -5",
-        "description": "Verify build after edits",
-        "pattern": "src/**/*.ts"
-      }
-    ]
   }
 }
