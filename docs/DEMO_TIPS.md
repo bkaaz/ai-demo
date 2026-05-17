@@ -36,10 +36,21 @@
 3. Point out: AI preserves behavior, improves structure
 4. `npx ng test` — tests still pass (no behavior change)
 
-## 5. Wrap-up (5 min)
+## 5. GitHub workflow — Task 4 (5-8 min)
+
+1. Tell Claude: "Create a GitHub issue for adding a loading spinner to Users table"
+   - Show the created issue in browser (link from `gh` output)
+2. Tell Claude: "Implement this on a new branch and create a PR"
+   - Point out: branch naming, commit message, PR structure
+3. Run `/review` on the PR
+   - Point out: AI reviews its own code — finds improvements, checks patterns
+4. Show the PR in GitHub — summary, test plan, linked issue
+
+## 6. Wrap-up (5 min)
 
 Key takeaways:
 1. **Context** — CLAUDE.md = onboarding doc for AI
 2. **Plan → Code → Test** — full cycle in one session
 3. **Quality** — conventions, types, tests are not an afterthought
 4. **Verification** — tests + visual verification = confidence
+5. **Workflow** — AI integrates with GitHub (issues, PRs, reviews)

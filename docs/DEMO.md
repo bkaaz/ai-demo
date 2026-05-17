@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Audience** | Technical team (developers) |
-| **Duration** | 30-40 min |
+| **Duration** | 35-45 min |
 | **Format** | Semi-scripted — planned steps, executed live with AI |
 | **Focus** | Plan → Code → Tests, Code quality, AI interaction |
 
@@ -25,8 +25,12 @@ Quick visual task with [mockup reference](mockup-dashboard-redesign.png). No pla
 ### 4. Refactor — Task 3 (3-5 min)
 Extract validators into a shared utility. Shows AI reasoning about code structure, not just generating new code. Run tests — behavior unchanged.
 
-### 5. Wrap-up + Q&A (5 min)
-Context matters. Plan → Code → Test in one session. Quality is not an afterthought. Tests + visual verification = confidence.
+### 5. GitHub workflow — Task 4 (5-8 min)
+Full cycle: create issue → branch → implement → PR → review. Shows AI as a workflow tool, not just code generator.
+Highlight: `gh` CLI usage, structured PR descriptions, `/review` skill for automated code review.
+
+### 6. Wrap-up + Q&A (5 min)
+Context matters. Plan → Code → Test in one session. Quality is not an afterthought. Tests + visual verification = confidence. AI integrates with your existing workflow (GitHub, PRs, reviews).
 
 ---
 

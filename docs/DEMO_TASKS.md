@@ -33,3 +33,21 @@ Existing icon colors: Blue (#1976d2), Green (#388e3c), Orange (#f57c00), Purple 
 ## Task 3: Refactor Settings validators
 
 The Settings component now has multiple validators inline in the component file. Extract all validators (pattern, minLength, cross-field password match) into a shared `validators.ts` utility file. Make sure existing tests still pass after the refactor.
+
+---
+
+## Task 4: GitHub workflow — Issue → Branch → PR → Review
+
+Demonstrate the full GitHub workflow using Claude Code:
+
+1. **Create an issue** — "Add a loading spinner to the Users table while data is being fetched"
+   - Assign appropriate labels (enhancement, UI)
+   - Include acceptance criteria in the description
+
+2. **Implement the fix on a new branch** — Claude creates a branch, implements the spinner, commits
+
+3. **Create a Pull Request** — with summary, test plan, and a reference to the issue
+
+4. **Review the PR** — use `/review` to get AI feedback on the changes
+
+This task showcases: `gh` CLI integration, branch workflow, PR creation with structured descriptions, and automated code review.

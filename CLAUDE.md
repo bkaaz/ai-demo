@@ -61,8 +61,9 @@ e2e/
 - Screenshots on failure
 
 ## CI/CD
-- GitLab CI with stages: install → lint → build → test:e2e
-- Artifacts: playwright-report/, test-results/junit.xml
+- GitHub Actions (`.github/workflows/ci.yml`)
+- Jobs: lint → build → test-e2e (e2e needs build)
+- Artifacts: playwright-report/, test-results/ (7-day retention)
 
 ## UI Verification
 
