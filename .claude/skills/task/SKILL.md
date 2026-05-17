@@ -4,9 +4,8 @@ description: |
   Plan implementation of a business task (Jira ticket, user story, feature request).
   Researches the codebase systematically and produces a step-by-step implementation plan.
   Use when you paste a task description and want to plan before coding.
-context: fork
-agent: Plan
-allowed-tools: Read Bash(find *) Bash(grep *) Bash(git log *) Bash(git diff *)
+allowed-tools: Read Bash(find *) Bash(grep *) Bash(git log *) Bash(git diff *) Agent
+disallowed-tools: Edit Write NotebookEdit
 argument-hint: "[paste task description]"
 ---
 
@@ -14,20 +13,9 @@ argument-hint: "[paste task description]"
 
 You are planning the implementation of a business task. Your job is to **research the codebase** and produce a **detailed, actionable implementation plan**. Do NOT implement anything — only plan.
 
-## Task Description
+## Task Input
 
 $ARGUMENTS
-
-## Project Context
-
-Current app structure:
-!`find src/app -maxdepth 2 -type f -name "*.ts" | sort`
-
-Routes:
-!`cat src/app/app.routes.ts`
-
-Available Material modules (from existing imports):
-!`grep -rh "from '@angular/material" src/app/ | sort -u`
 
 ## Your Process
 
@@ -41,17 +29,15 @@ Extract from the task description:
 
 ### Phase 2: Research Codebase
 
-Systematically explore to understand:
-1. **Related files** — which components, services, or modules are relevant?
-2. **Existing patterns** — how does similar functionality work in this app?
-3. **Reusable code** — utilities, helpers, types that already exist and should be reused
-4. **Test patterns** — how are similar features tested? (check `e2e/`)
+Spawn an **Explore subagent** (Agent tool with `subagent_type="Explore"`, breadth: `"very thorough"`) to research the codebase. The prompt should include keywords from the task and ask it to find:
 
-Use these tools:
-- `find src -name "*.ts" | grep -i [keyword]` — locate files
-- `grep -r "[pattern]" src/` — find usage patterns
-- `Read [file]` — understand implementation details
-- `find e2e -name "*.ts" | grep -i [keyword]` — find test patterns
+1. **Project structure** — app structure, routes, available Material modules
+2. **Related files** — which components, services, or modules are relevant?
+3. **Existing patterns** — how does similar functionality work in this app?
+4. **Reusable code** — utilities, helpers, types that already exist and should be reused
+5. **Test patterns** — how are similar features tested? (check `e2e/`)
+
+Use the returned findings summary in Phase 3 — do NOT re-explore the same files yourself.
 
 ### Phase 3: Create Implementation Plan
 
