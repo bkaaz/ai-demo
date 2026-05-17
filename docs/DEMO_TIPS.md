@@ -4,8 +4,9 @@
 
 1. Open `CLAUDE.md` — walk through what it contains
 2. Open `.claude/skills/` — show one skill file, explain specialized roles
-3. Open `.claude/settings.json` — show permissions and hooks
-4. Message: "AI without context writes generic code. With context — it follows project conventions."
+3. Open `.claude/agents/` — mention the 3 agents (accessibility, code-review, design system). "Same project context, but each has a focused autonomous role — like a specialist on the team."
+4. Open `.claude/settings.json` — show permissions and hooks
+5. Message: "AI without context writes generic code. With context — it follows project conventions."
 
 ## 2. Settings form — Task 1 (15-20 min)
 
