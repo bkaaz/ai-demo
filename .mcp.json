@@ -3,7 +3,7 @@
     "playwright": {
       "type": "stdio",
       "command": "npx",
-      "args": ["@playwright/mcp@latest", "--caps=vision"]
+      "args": ["@playwright/mcp@latest", "--caps=vision", "--launch-options={\"args\":[\"--disable-sync\",\"--no-first-run\"]}"]
     }
   }
 }

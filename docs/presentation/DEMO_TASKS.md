@@ -68,7 +68,35 @@ We need to wire up the existing toggle so it actually switches the Angular Mater
 
 ---
 
-## APP-104: Colorful stat cards on Dashboard
+## APP-104: Dashboard redesign — implement from mockup
+
+**Description:**
+The design team delivered a new visual direction for the dashboard stat cards and chart section. The mockup is available at `docs/presentation/mockup-dashboard-redesign.png`.
+
+Key changes visible in the mockup:
+- Stat cards have pastel colored backgrounds (blue, green, orange, purple)
+- Icons are placed inside rounded square containers with solid color fills and white icon color
+- Icon placement moved to the left side of the card (before the text)
+- Card titles are uppercase with letter-spacing
+- Chart bars changed from blue to purple gradient
+- Chart bars have more rounded corners
+
+**Acceptance Criteria:**
+- [ ] Stat cards match the mockup: colored backgrounds, icon in rounded square on the left
+- [ ] Chart gradient changed from blue to purple
+- [ ] Text remains readable (sufficient contrast)
+- [ ] Cards still look cohesive as a group
+- [ ] No changes to the stat data or event list
+- [ ] Existing E2E tests still pass
+
+**Notes:**
+- Reference mockup: `docs/presentation/mockup-dashboard-redesign.png`
+- Use `/verify-ui dashboard` after implementation to compare with the mockup
+- This task demonstrates the "design → implementation → visual verification" workflow
+
+---
+
+## APP-105: Colorful stat cards on Dashboard (simple)
 
 **Description:**
 The dashboard stat cards (Total Users, Revenue, Orders, Growth) currently have plain white backgrounds which makes them blend together. Each card already has a unique color assigned to its icon — we want to extend that color to the card background as a subtle tint, making the dashboard more visually distinct and scannable.
@@ -86,7 +114,7 @@ The change should use light/pastel versions of the existing icon colors so the t
 - Existing icon colors: Blue (#1976d2), Green (#388e3c), Orange (#f57c00), Purple (#7b1fa2)
 - Use ~10% opacity versions or hand-picked pastels (e.g. #e3f2fd, #e8f5e9, #fff3e0, #f3e5f5)
 - Can be done via inline style binding or a CSS class per card
-- Good candidate for demonstrating `/verify-ui` workflow (before/after screenshot)
+- Simpler version of APP-104 (no layout changes, just backgrounds)
 
 ---
 
