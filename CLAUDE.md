@@ -17,6 +17,7 @@
 ```bash
 npx ng serve              # Dev server (port 4200)
 npx ng build              # Production build
+npx ng test               # Unit tests (single run, headless)
 npx ng lint               # ESLint
 npx playwright test       # E2E tests (27 tests)
 npx playwright test --ui  # Interactive test runner
@@ -44,6 +45,15 @@ e2e/
 - Page Object Model pattern for E2E tests
 
 ## Testing
+
+### Unit Tests (Karma + Jasmine)
+- One `.spec.ts` per component in the same directory
+- `TestBed.configureTestingModule` with standalone component + `NoopAnimationsModule`
+- Mock injected services with `jasmine.createSpyObj`
+- Run: `npx ng test` (single run, ChromeHeadless)
+- Run with watch: `npx ng test --watch`
+
+### E2E Tests (Playwright)
 - Playwright with system Chrome (`channel: 'chrome'`)
 - Page Object Model in `e2e/pages/`
 - Tests grouped by feature in `e2e/tests/`
