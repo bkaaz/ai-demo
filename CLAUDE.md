@@ -59,5 +59,6 @@ e2e/
 After making changes to component templates, styles, or layout:
 - Use Playwright MCP tools to verify the rendered result in the browser
 - Navigate to the affected route and take a screenshot
+- Save all screenshots to `.playwright-mcp/` directory (NEVER to project root)
 - Confirm the UI renders correctly before reporting the task as complete
 - If the dev server isn't running, start it with `npx ng serve --port 4200`

@@ -19,7 +19,7 @@ Verify the current UI state of the Angular app in the browser.
 
 3. **Take a snapshot and screenshot**
    - Use `browser_snapshot` to get the accessibility tree (structure, content, interactive elements)
-   - Use `browser_screenshot` to capture the visual state
+   - Use `browser_screenshot` with filename `.playwright-mcp/verify-<route>.png` (NEVER save screenshots to project root)
 
 4. **Analyze the result**
    - Verify the page renders correctly (no errors, no blank content)
