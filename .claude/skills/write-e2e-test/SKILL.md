@@ -1,5 +1,5 @@
 ---
-name: write-tests
+name: write-e2e-test
 description: Generate Playwright E2E tests with page objects for an Angular component.
 disable-model-invocation: true
 allowed-tools: Bash(npx playwright test*)

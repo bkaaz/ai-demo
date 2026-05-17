@@ -1,18 +1,4 @@
 {
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Evaluate the user's prompt below. You MUST respond with valid JSON only, no other text.\n\nRules:\n- For short follow-ups ('yes', 'tak', 'do it', 'ok', 'continue', 'commit', confirmations under 5 words): respond {\"hookSpecificOutput\":{\"additionalContext\":\"\"}}\n- For clear, specific prompts that don't need improvement: respond {\"hookSpecificOutput\":{\"additionalContext\":\"\"}}\n- For prompts that could be improved: respond {\"hookSpecificOutput\":{\"additionalContext\":\"Prompt tip: <1 sentence suggestion + Claude Code feature if applicable>\"}}\n\nNEVER block the prompt. NEVER return a stopReason. Always let the prompt through.\n\nEvaluation criteria (only for non-trivial prompts):\n1. Specificity — does it name files, functions, errors?\n2. Context — does it explain what exists and what's needed?\n3. Feature awareness — could plan mode, skills, subagents, @file references help?\n\nUser's prompt: $ARGUMENTS",
-            "timeout": 10,
-            "statusMessage": "Prompt coaching..."
-          }
-        ]
-      }
-    ]
-  },
   "permissions": {
     "allow": [
       "Bash(npx ng serve*)",
