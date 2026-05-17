@@ -68,6 +68,28 @@ We need to wire up the existing toggle so it actually switches the Angular Mater
 
 ---
 
+## APP-104: Colorful stat cards on Dashboard
+
+**Description:**
+The dashboard stat cards (Total Users, Revenue, Orders, Growth) currently have plain white backgrounds which makes them blend together. Each card already has a unique color assigned to its icon — we want to extend that color to the card background as a subtle tint, making the dashboard more visually distinct and scannable.
+
+The change should use light/pastel versions of the existing icon colors so the text remains readable. This improves the visual hierarchy without changing the layout or data.
+
+**Acceptance Criteria:**
+- [ ] Each stat card has a unique light background color matching its icon color
+- [ ] Text remains readable (sufficient contrast against the tinted background)
+- [ ] Cards still look cohesive as a group (same border-radius, spacing, elevation)
+- [ ] Hover state still works naturally with the new backgrounds
+- [ ] No changes to the stat data, icons, or layout
+
+**Notes:**
+- Existing icon colors: Blue (#1976d2), Green (#388e3c), Orange (#f57c00), Purple (#7b1fa2)
+- Use ~10% opacity versions or hand-picked pastels (e.g. #e3f2fd, #e8f5e9, #fff3e0, #f3e5f5)
+- Can be done via inline style binding or a CSS class per card
+- Good candidate for demonstrating `/verify-ui` workflow (before/after screenshot)
+
+---
+
 ## Demo Tips
 
 - Run `/task [paste task description]` to show the planning workflow

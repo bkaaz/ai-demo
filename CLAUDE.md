@@ -53,3 +53,11 @@ e2e/
 ## CI/CD
 - GitLab CI with stages: install → lint → build → test:e2e
 - Artifacts: playwright-report/, test-results/junit.xml
+
+## UI Verification
+
+After making changes to component templates, styles, or layout:
+- Use Playwright MCP tools to verify the rendered result in the browser
+- Navigate to the affected route and take a screenshot
+- Confirm the UI renders correctly before reporting the task as complete
+- If the dev server isn't running, start it with `npx ng serve --port 4200`

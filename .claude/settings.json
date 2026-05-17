@@ -38,6 +38,8 @@
       "Bash(gh pr *)",
       "Bash(gh issue *)",
       "Bash(gh repo *)",
+      "Bash(lsof -i *)",
+      "mcp__playwright__*",
       "Read",
       "Edit",
       "Write"
