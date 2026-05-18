@@ -11,6 +11,12 @@ export class SettingsPage {
   readonly themeSelect: Locator;
   readonly saveButton: Locator;
   readonly resetButton: Locator;
+  readonly phoneInput: Locator;
+  readonly bioInput: Locator;
+  readonly bioCounter: Locator;
+  readonly newPasswordInput: Locator;
+  readonly confirmPasswordInput: Locator;
+  readonly passwordSectionTitle: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -23,6 +29,12 @@ export class SettingsPage {
     this.themeSelect = page.locator('[data-testid="theme-select"]');
     this.saveButton = page.locator('[data-testid="save-button"]');
     this.resetButton = page.locator('[data-testid="reset-button"]');
+    this.phoneInput = page.locator('[data-testid="phone-input"]');
+    this.bioInput = page.locator('[data-testid="bio-input"]');
+    this.bioCounter = page.locator('[data-testid="bio-counter"]');
+    this.newPasswordInput = page.locator('[data-testid="new-password-input"]');
+    this.confirmPasswordInput = page.locator('[data-testid="confirm-password-input"]');
+    this.passwordSectionTitle = page.locator('[data-testid="password-section-title"]');
   }
 
   async goto() {
@@ -42,6 +54,26 @@ export class SettingsPage {
   async selectTheme(theme: string) {
     await this.themeSelect.click();
     await this.page.locator('mat-option').filter({ hasText: theme }).click();
+  }
+
+  async fillPhone(value: string) {
+    await this.phoneInput.clear();
+    await this.phoneInput.fill(value);
+  }
+
+  async fillBio(value: string) {
+    await this.bioInput.clear();
+    await this.bioInput.fill(value);
+  }
+
+  async fillNewPassword(value: string) {
+    await this.newPasswordInput.clear();
+    await this.newPasswordInput.fill(value);
+  }
+
+  async fillConfirmPassword(value: string) {
+    await this.confirmPasswordInput.clear();
+    await this.confirmPasswordInput.fill(value);
   }
 
   async toggleNotifications() {
