@@ -32,7 +32,14 @@ Existing icon colors: Blue (#1976d2), Green (#388e3c), Orange (#f57c00), Purple 
 
 ## Task 3: Refactor Settings validators
 
-The Settings component now has multiple validators inline in the component file. Extract all validators (pattern, minLength, cross-field password match) into a shared `validators.ts` utility file. Make sure existing tests still pass after the refactor.
+The Settings component uses inline Angular validators directly in the component file. Refactor validation into a shared utility:
+
+1. Create `src/app/shared/validators.ts` exporting:
+   - `requiredValidator` — wraps `Validators.required`
+   - `minLengthValidator(length: number)` — wraps `Validators.minLength`
+   - `emailValidator` — wraps `Validators.email`
+2. Update `settings.component.ts` to import and use validators from the new utility instead of referencing `Validators.*` directly.
+3. All existing unit tests must still pass (`npm test`).
 
 ---
 
