@@ -1,4 +1,43 @@
 {
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Edit(*.ts)",
+            "command": "npx ng lint 2>&1 | tail -5",
+            "timeout": 30,
+            "statusMessage": "Linting TypeScript..."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Edit(*.spec.ts)",
+            "command": "npx ng test 2>&1 | tail -15",
+            "timeout": 60,
+            "statusMessage": "Running unit tests..."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git push*)",
+            "command": "osascript -e 'display notification \"Push to remote completed successfully\" with title \"Claude Code\" sound name \"Glass\"'",
+            "statusMessage": "Sending push notification..."
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "allow": [
       "Bash(npx ng serve*)",
