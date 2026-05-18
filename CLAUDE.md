@@ -20,7 +20,7 @@ npm run build             # Production build
 npm test                  # Unit tests (single run, headless)
 npm run lint              # ESLint
 npm run e2e               # E2E tests (27 tests)
-npx playwright test --ui  # Interactive test runner
+npm run e2e:ui            # Interactive test runner
 ```
 
 ## Project Structure
