@@ -15,11 +15,11 @@
 
 ## Commands
 ```bash
-npx ng serve              # Dev server (port 4200)
-npx ng build              # Production build
-npx ng test               # Unit tests (single run, headless)
-npx ng lint               # ESLint
-npx playwright test       # E2E tests (27 tests)
+npm start                 # Dev server (port 4200)
+npm run build             # Production build
+npm test                  # Unit tests (single run, headless)
+npm run lint              # ESLint
+npm run e2e               # E2E tests (27 tests)
 npx playwright test --ui  # Interactive test runner
 ```
 
@@ -50,8 +50,8 @@ e2e/
 - One `.spec.ts` per component in the same directory
 - `TestBed.configureTestingModule` with standalone component + `NoopAnimationsModule`
 - Mock injected services with `jasmine.createSpyObj`
-- Run: `npx ng test` (single run, ChromeHeadless)
-- Run with watch: `npx ng test --watch`
+- Run: `npm test` (single run, headless)
+- Run with watch: `npm test -- --watch`
 
 ### E2E Tests (Playwright)
 - Playwright with system Chrome (`channel: 'chrome'`)
