@@ -60,8 +60,64 @@ test.describe('Settings', () => {
   test('should reset form to defaults', async () => {
     await settings.fillName('Changed Name');
     await settings.fillEmail('changed@test.com');
+    await settings.fillPhone('123456789');
+    await settings.fillBio('Some bio text');
     await settings.reset();
     await expect(settings.nameInput).toHaveValue('John Doe');
     await expect(settings.emailInput).toHaveValue('john@example.com');
+    await expect(settings.phoneInput).toHaveValue('');
+    await expect(settings.bioInput).toHaveValue('');
+  });
+
+  test('should show phone pattern validation error', async () => {
+    await settings.fillPhone('abc');
+    await settings.phoneInput.blur();
+    await settings.save();
+    await expect(settings.getError('phone-pattern-error')).toBeVisible();
+  });
+
+  test('should accept valid phone number', async () => {
+    await settings.fillPhone('+48123456789');
+    await settings.phoneInput.blur();
+    await settings.save();
+    await expect(settings.getError('phone-pattern-error')).not.toBeVisible();
+  });
+
+  test('should display bio character counter', async () => {
+    await expect(settings.bioCharCounter).toContainText('0 / 200');
+    await settings.fillBio('Hello');
+    await expect(settings.bioCharCounter).toContainText('5 / 200');
+  });
+
+  test('should show password section', async () => {
+    await expect(settings.passwordSection).toBeVisible();
+    await expect(settings.getError('password-section-title')).toHaveText('Change Password');
+  });
+
+  test('should show password minlength error', async () => {
+    await settings.fillNewPassword('short');
+    await settings.newPasswordInput.blur();
+    await settings.save();
+    await expect(settings.getError('password-minlength-error')).toBeVisible();
+  });
+
+  test('should show password mismatch error', async () => {
+    await settings.fillNewPassword('password1');
+    await settings.fillConfirmPassword('password2');
+    await settings.confirmPasswordInput.blur();
+    await settings.save();
+    await expect(settings.getError('password-mismatch-error')).toBeVisible();
+  });
+
+  test('should save with all new fields valid', async ({ page }) => {
+    await settings.fillName('Jane Doe');
+    await settings.fillEmail('jane@example.com');
+    await settings.fillPhone('123456789');
+    await settings.fillBio('A short bio');
+    await settings.fillNewPassword('securepass');
+    await settings.fillConfirmPassword('securepass');
+    await settings.save();
+    const snackbar = page.locator('mat-snack-bar-container');
+    await expect(snackbar).toContainText('Settings saved successfully');
   });
 });
