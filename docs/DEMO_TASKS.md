@@ -30,16 +30,16 @@ Existing icon colors: Blue (#1976d2), Green (#388e3c), Orange (#f57c00), Purple 
 
 ---
 
-## Task 3: Refactor Settings validators
+## Task 3: E2E Test Gap Analysis
 
-The Settings component uses inline Angular validators directly in the component file. Refactor validation into a shared utility:
+Analyze the existing E2E test coverage in `e2e/tests/` and compare it against all interactive features in the application components (`src/app/`).
 
-1. Create `src/app/shared/validators.ts` exporting:
-   - `requiredValidator` — wraps `Validators.required`
-   - `minLengthValidator(length: number)` — wraps `Validators.minLength`
-   - `emailValidator` — wraps `Validators.email`
-2. Update `settings.component.ts` to import and use validators from the new utility instead of referencing `Validators.*` directly.
-3. All existing unit tests must still pass (`npm test`).
+Deliver:
+1. A coverage matrix — which user-facing interactions are tested vs untested
+2. A prioritized list of the most important missing E2E scenarios, ranked by user impact
+3. For each missing scenario, a one-line test description and which spec file it belongs to
+
+Focus on real user flows and interactions, not implementation details.
 
 ---
 

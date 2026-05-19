@@ -1,0 +1,41 @@
+- show project in browser
+- show CLAUDE.md
+- start task 1
+    - tell I can go and paste the task into plan mode
+    - use /task skill instead and describe, usage: "/task paste_task_content"
+    - after some time I have some plan
+        - I real project I would read it carefully and make changes if needed but right now we can just accept it
+        - show it would write tests and make verification using /verify-ui skill
+        - during implementation while we are waiting I can show flow where I would go and fix some quick issue
+            - I can open new session using clalude --worktree some-issue
+        - after implementation show in browser it works
+        - tell we can do review of the changes
+            - I would review all the changes by myself and ask questions if needed
+            - in pararel the same time I can start reivew-subagent in the background
+            - I also can ran accessibility-auditor to show than we can have more sub-agents working
+        - if eveything is fine i can commit changes on new branch
+            - use /pr skill for that
+            - show pr in the browser
+            - show actions and runing pipeline
+- start task 2
+    - tell it is a task about changing UI based on some desing
+    - it would be the best to have MCP connected to figma but I dont have dev mode right now so I created image with design
+    - it is easy task so I can just go to plan mode and prompt "implement ui change based on the @docs/mockup-dashboard-redesign.png"
+    - show /verify-ui skill
+    - commit or revert changes
+- start task 3 — E2E test gap analysis
+    - tell this is a different type of task — not building a feature or changing UI, but analyzing tests
+    - run /task with: task 3 content
+    - show the output — coverage matrix + prioritized gap list
+    - tell: natural step would be "now implement the top 3" but we don't need to do that now
+- start task 4 - Github Issue
+    - create an issue from Task 4 (using gh cli)
+    - show the issue is created on github
+    - tell: we can now start implementation but it would be the same as in previous tasks
+
+Additionally
+ - show angular oficial skills - tell its needed because the model does not know well new features from angular like signals
+ - show other skills (not presented)
+ - tell I didnt installed each skill related to frontend because I didnt want this demo to be too long and adidtional skills takes contex and are often not necessary
+ - I didint installed oficial antropic forntend pluging because I have material desing in this app
+
