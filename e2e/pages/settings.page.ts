@@ -7,8 +7,14 @@ export class SettingsPage {
   readonly form: Locator;
   readonly nameInput: Locator;
   readonly emailInput: Locator;
+  readonly phoneInput: Locator;
+  readonly bioInput: Locator;
+  readonly bioCounter: Locator;
   readonly notificationsToggle: Locator;
   readonly themeSelect: Locator;
+  readonly newPasswordInput: Locator;
+  readonly confirmPasswordInput: Locator;
+  readonly passwordSectionTitle: Locator;
   readonly saveButton: Locator;
   readonly resetButton: Locator;
 
@@ -19,8 +25,14 @@ export class SettingsPage {
     this.form = page.locator('[data-testid="settings-form"]');
     this.nameInput = page.locator('[data-testid="name-input"]');
     this.emailInput = page.locator('[data-testid="email-input"]');
+    this.phoneInput = page.locator('[data-testid="phone-input"]');
+    this.bioInput = page.locator('[data-testid="bio-input"]');
+    this.bioCounter = page.locator('[data-testid="bio-counter"]');
     this.notificationsToggle = page.locator('[data-testid="notifications-toggle"]');
     this.themeSelect = page.locator('[data-testid="theme-select"]');
+    this.newPasswordInput = page.locator('[data-testid="new-password-input"]');
+    this.confirmPasswordInput = page.locator('[data-testid="confirm-password-input"]');
+    this.passwordSectionTitle = page.locator('[data-testid="password-section-title"]');
     this.saveButton = page.locator('[data-testid="save-button"]');
     this.resetButton = page.locator('[data-testid="reset-button"]');
   }
@@ -37,6 +49,26 @@ export class SettingsPage {
   async fillEmail(value: string) {
     await this.emailInput.clear();
     await this.emailInput.fill(value);
+  }
+
+  async fillPhone(value: string) {
+    await this.phoneInput.clear();
+    await this.phoneInput.fill(value);
+  }
+
+  async fillBio(value: string) {
+    await this.bioInput.clear();
+    await this.bioInput.fill(value);
+  }
+
+  async fillNewPassword(value: string) {
+    await this.newPasswordInput.clear();
+    await this.newPasswordInput.fill(value);
+  }
+
+  async fillConfirmPassword(value: string) {
+    await this.confirmPasswordInput.clear();
+    await this.confirmPasswordInput.fill(value);
   }
 
   async selectTheme(theme: string) {
