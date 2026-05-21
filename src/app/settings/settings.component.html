@@ -29,6 +29,23 @@
           }
         </mat-form-field>
 
+        <mat-form-field appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input matInput formControlName="phone" data-testid="phone-input" />
+          @if (settingsForm.get('phone')?.hasError('pattern') && settingsForm.get('phone')?.touched) {
+            <mat-error data-testid="phone-pattern-error">Enter a valid phone number (digits, optional +48 prefix)</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bio</mat-label>
+          <textarea matInput formControlName="bio" rows="3" data-testid="bio-input"></textarea>
+          <mat-hint align="end" data-testid="bio-counter">{{ bioLength }}/200</mat-hint>
+          @if (settingsForm.get('bio')?.hasError('maxlength') && settingsForm.get('bio')?.touched) {
+            <mat-error data-testid="bio-maxlength-error">Bio must be 200 characters or less</mat-error>
+          }
+        </mat-form-field>
+
         <div class="toggle-row">
           <mat-slide-toggle formControlName="notifications" data-testid="notifications-toggle">
             Email Notifications
@@ -43,6 +60,24 @@
             }
           </mat-select>
         </mat-form-field>
+
+        <div class="password-section" formGroupName="password">
+          <h3 data-testid="password-section-title">Change Password</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>New Password</mat-label>
+            <input matInput formControlName="newPassword" type="password" data-testid="new-password-input" />
+            @if (settingsForm.get('password.newPassword')?.hasError('minlength') && settingsForm.get('password.newPassword')?.touched) {
+              <mat-error data-testid="password-minlength-error">Password must be at least 8 characters</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput formControlName="confirmPassword" type="password" [errorStateMatcher]="passwordMatcher" data-testid="confirm-password-input" />
+            @if (settingsForm.get('password')?.hasError('passwordMismatch') && settingsForm.get('password.confirmPassword')?.touched) {
+              <mat-error data-testid="password-mismatch-error">Passwords do not match</mat-error>
+            }
+          </mat-form-field>
+        </div>
 
         <div class="actions">
           <button mat-raised-button color="primary" type="submit" data-testid="save-button">
