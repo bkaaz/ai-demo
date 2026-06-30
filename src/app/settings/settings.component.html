@@ -29,6 +29,23 @@
           }
         </mat-form-field>
 
+        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phone" data-testid="phone-input" placeholder="+48123456789" />
+          @if (settingsForm.get('phone')?.hasError('pattern') && settingsForm.get('phone')?.touched) {
+            <mat-error data-testid="phone-pattern-error">Enter digits with optional +48 prefix</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bio</mat-label>
+          <textarea matInput formControlName="bio" data-testid="bio-input" rows="4" maxlength="200"></textarea>
+          <mat-hint align="end" data-testid="bio-char-counter">{{ settingsForm.get('bio')?.value?.length ?? 0 }}/200</mat-hint>
+          @if (settingsForm.get('bio')?.hasError('maxlength') && settingsForm.get('bio')?.touched) {
+            <mat-error data-testid="bio-maxlength-error">Bio cannot exceed 200 characters</mat-error>
+          }
+        </mat-form-field>
+
         <div class="toggle-row">
           <mat-slide-toggle formControlName="notifications" data-testid="notifications-toggle">
             Email Notifications
@@ -43,6 +60,30 @@
             }
           </mat-select>
         </mat-form-field>
+
+        <div class="section-heading" data-testid="change-password-section">
+          <span>Change Password</span>
+          <span class="section-subtext">Leave blank to keep current password</span>
+        </div>
+
+        <div formGroupName="changePassword">
+          <mat-form-field appearance="outline">
+            <mat-label>New Password</mat-label>
+            <input matInput type="password" formControlName="newPassword" data-testid="new-password-input" />
+            @if (changePasswordGroup.get('newPassword')?.hasError('minlength') && changePasswordGroup.get('newPassword')?.touched) {
+              <mat-error data-testid="new-password-minlength-error">Password must be at least 8 characters</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" formControlName="confirmPassword" data-testid="confirm-password-input" />
+          </mat-form-field>
+
+          @if (changePasswordGroup.hasError('passwordMismatch') && changePasswordGroup.get('confirmPassword')?.touched) {
+            <mat-error data-testid="confirm-password-mismatch-error">Passwords do not match</mat-error>
+          }
+        </div>
 
         <div class="actions">
           <button mat-raised-button color="primary" type="submit" data-testid="save-button">

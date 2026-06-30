@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -8,6 +8,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
+
+function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+  const pw = group.get('newPassword')?.value;
+  const confirm = group.get('confirmPassword')?.value;
+  if (!pw && !confirm) return null;
+  return pw === confirm ? null : { passwordMismatch: true };
+}
 
 @Component({
   selector: 'app-settings',
@@ -37,7 +44,17 @@ export class SettingsComponent {
     email: ['john@example.com', [Validators.required, Validators.email]],
     notifications: [true],
     theme: ['Light'],
+    phone: ['', [Validators.pattern(/^(\+48)?\d{7,15}$/)]],
+    bio: ['', [Validators.maxLength(200)]],
+    changePassword: this.fb.group(
+      { newPassword: ['', [Validators.minLength(8)]], confirmPassword: [''] },
+      { validators: passwordMatchValidator }
+    ),
   });
+
+  get changePasswordGroup(): FormGroup {
+    return this.settingsForm.get('changePassword') as FormGroup;
+  }
 
   onSubmit(): void {
     if (this.settingsForm.valid) {
@@ -57,6 +74,9 @@ export class SettingsComponent {
       email: 'john@example.com',
       notifications: true,
       theme: 'Light',
+      phone: '',
+      bio: '',
+      changePassword: { newPassword: '', confirmPassword: '' },
     });
   }
 }
