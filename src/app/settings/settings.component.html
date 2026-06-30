@@ -44,6 +44,43 @@
           </mat-select>
         </mat-form-field>
 
+        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phone" data-testid="phone-input" />
+          @if (settingsForm.get('phone')?.hasError('pattern') && settingsForm.get('phone')?.touched) {
+            <mat-error data-testid="phone-pattern-error">Please enter a valid phone number</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bio</mat-label>
+          <textarea matInput formControlName="bio" rows="3" data-testid="bio-input"></textarea>
+          <mat-hint align="end" data-testid="bio-counter">
+            {{ settingsForm.get('bio')?.value?.length || 0 }} / 200
+          </mat-hint>
+          @if (settingsForm.get('bio')?.hasError('maxlength') && settingsForm.get('bio')?.touched) {
+            <mat-error data-testid="bio-maxlength-error">Bio cannot exceed 200 characters</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="password-section" formGroupName="passwordGroup">
+          <h3 data-testid="password-section-title">Change Password</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>New Password</mat-label>
+            <input matInput type="password" formControlName="newPassword" data-testid="new-password-input" />
+            @if (settingsForm.get('passwordGroup.newPassword')?.hasError('minlength') && settingsForm.get('passwordGroup.newPassword')?.touched) {
+              <mat-error data-testid="password-minlength-error">Password must be at least 8 characters</mat-error>
+            }
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" formControlName="confirmPassword" [errorStateMatcher]="passwordMismatchMatcher" data-testid="confirm-password-input" />
+            @if (settingsForm.get('passwordGroup')?.hasError('passwordMismatch') && settingsForm.get('passwordGroup.confirmPassword')?.touched) {
+              <mat-error data-testid="password-mismatch-error">Passwords do not match</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
         <div class="actions">
           <button mat-raised-button color="primary" type="submit" data-testid="save-button">
             <mat-icon>save</mat-icon>

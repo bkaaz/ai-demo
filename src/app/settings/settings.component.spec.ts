@@ -35,6 +35,19 @@ describe('SettingsComponent', () => {
     it('should have Light theme selected', () => {
       expect(component.settingsForm.get('theme')?.value).toBe('Light');
     });
+
+    it('should have empty phone', () => {
+      expect(component.settingsForm.get('phone')?.value).toBe('');
+    });
+
+    it('should have empty bio', () => {
+      expect(component.settingsForm.get('bio')?.value).toBe('');
+    });
+
+    it('should have empty password fields', () => {
+      expect(component.settingsForm.get('passwordGroup.newPassword')?.value).toBe('');
+      expect(component.settingsForm.get('passwordGroup.confirmPassword')?.value).toBe('');
+    });
   });
 
   describe('themes', () => {
@@ -77,6 +90,78 @@ describe('SettingsComponent', () => {
     });
   });
 
+  describe('phone validation', () => {
+    it('should be invalid with letters', () => {
+      component.settingsForm.get('phone')?.setValue('abc');
+      expect(component.settingsForm.get('phone')?.hasError('pattern')).toBeTrue();
+    });
+
+    it('should be invalid with double plus', () => {
+      component.settingsForm.get('phone')?.setValue('++48123456789');
+      expect(component.settingsForm.get('phone')?.hasError('pattern')).toBeTrue();
+    });
+
+    it('should be valid with digits only', () => {
+      component.settingsForm.get('phone')?.setValue('123456789');
+      expect(component.settingsForm.get('phone')?.valid).toBeTrue();
+    });
+
+    it('should be valid with +48 prefix', () => {
+      component.settingsForm.get('phone')?.setValue('+48123456789');
+      expect(component.settingsForm.get('phone')?.valid).toBeTrue();
+    });
+
+    it('should be valid when empty', () => {
+      component.settingsForm.get('phone')?.setValue('');
+      expect(component.settingsForm.get('phone')?.valid).toBeTrue();
+    });
+  });
+
+  describe('bio validation', () => {
+    it('should be invalid when exceeding 200 characters', () => {
+      component.settingsForm.get('bio')?.setValue('a'.repeat(201));
+      expect(component.settingsForm.get('bio')?.hasError('maxlength')).toBeTrue();
+    });
+
+    it('should be valid with exactly 200 characters', () => {
+      component.settingsForm.get('bio')?.setValue('a'.repeat(200));
+      expect(component.settingsForm.get('bio')?.valid).toBeTrue();
+    });
+
+    it('should be valid when empty', () => {
+      component.settingsForm.get('bio')?.setValue('');
+      expect(component.settingsForm.get('bio')?.valid).toBeTrue();
+    });
+  });
+
+  describe('password validation', () => {
+    it('should be invalid when password is less than 8 characters', () => {
+      component.settingsForm.get('passwordGroup.newPassword')?.setValue('1234567');
+      expect(component.settingsForm.get('passwordGroup.newPassword')?.hasError('minlength')).toBeTrue();
+    });
+
+    it('should be valid when password is 8 or more characters', () => {
+      component.settingsForm.get('passwordGroup.newPassword')?.setValue('12345678');
+      expect(component.settingsForm.get('passwordGroup.newPassword')?.valid).toBeTrue();
+    });
+
+    it('should have passwordMismatch error when passwords differ', () => {
+      component.settingsForm.get('passwordGroup.newPassword')?.setValue('password123');
+      component.settingsForm.get('passwordGroup.confirmPassword')?.setValue('different');
+      expect(component.settingsForm.get('passwordGroup')?.hasError('passwordMismatch')).toBeTrue();
+    });
+
+    it('should not have passwordMismatch error when passwords match', () => {
+      component.settingsForm.get('passwordGroup.newPassword')?.setValue('password123');
+      component.settingsForm.get('passwordGroup.confirmPassword')?.setValue('password123');
+      expect(component.settingsForm.get('passwordGroup')?.hasError('passwordMismatch')).toBeFalse();
+    });
+
+    it('should not have passwordMismatch error when both are empty', () => {
+      expect(component.settingsForm.get('passwordGroup')?.hasError('passwordMismatch')).toBeFalse();
+    });
+  });
+
   describe('onSubmit', () => {
     it('should open snackbar when form is valid', () => {
       const snackBarSpy = spyOn(component['snackBar'], 'open');
@@ -116,6 +201,10 @@ describe('SettingsComponent', () => {
       expect(component.settingsForm.get('email')?.value).toBe('john@example.com');
       expect(component.settingsForm.get('notifications')?.value).toBeTrue();
       expect(component.settingsForm.get('theme')?.value).toBe('Light');
+      expect(component.settingsForm.get('phone')?.value).toBe('');
+      expect(component.settingsForm.get('bio')?.value).toBe('');
+      expect(component.settingsForm.get('passwordGroup.newPassword')?.value).toBe('');
+      expect(component.settingsForm.get('passwordGroup.confirmPassword')?.value).toBe('');
     });
   });
 });

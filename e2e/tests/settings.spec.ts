@@ -60,8 +60,58 @@ test.describe('Settings', () => {
   test('should reset form to defaults', async () => {
     await settings.fillName('Changed Name');
     await settings.fillEmail('changed@test.com');
+    await settings.fillPhone('+48123456789');
+    await settings.fillBio('Some bio text');
+    await settings.fillNewPassword('password123');
+    await settings.fillConfirmPassword('password123');
     await settings.reset();
     await expect(settings.nameInput).toHaveValue('John Doe');
     await expect(settings.emailInput).toHaveValue('john@example.com');
+    await expect(settings.phoneInput).toHaveValue('');
+    await expect(settings.bioInput).toHaveValue('');
+    await expect(settings.newPasswordInput).toHaveValue('');
+    await expect(settings.confirmPasswordInput).toHaveValue('');
+  });
+
+  test('should show phone validation error for invalid number', async () => {
+    await settings.fillPhone('abc');
+    await settings.phoneInput.blur();
+    await settings.save();
+    await expect(settings.getError('phone-pattern-error')).toBeVisible();
+  });
+
+  test('should accept valid phone number with +48 prefix', async () => {
+    await settings.fillPhone('+48123456789');
+    await settings.phoneInput.blur();
+    await settings.save();
+    await expect(settings.getError('phone-pattern-error')).not.toBeVisible();
+  });
+
+  test('should display bio character counter', async () => {
+    await settings.fillBio('Hello world');
+    await expect(settings.bioCounter).toContainText('11 / 200');
+  });
+
+  test('should show password minlength error', async () => {
+    await settings.fillNewPassword('short');
+    await settings.newPasswordInput.blur();
+    await settings.save();
+    await expect(settings.getError('password-minlength-error')).toBeVisible();
+  });
+
+  test('should show password mismatch error', async () => {
+    await settings.fillNewPassword('password123');
+    await settings.fillConfirmPassword('different');
+    await settings.confirmPasswordInput.blur();
+    await settings.save();
+    await expect(settings.getError('password-mismatch-error')).toBeVisible();
+  });
+
+  test('should not show mismatch error when passwords match', async () => {
+    await settings.fillNewPassword('password123');
+    await settings.fillConfirmPassword('password123');
+    await settings.confirmPasswordInput.blur();
+    await settings.save();
+    await expect(settings.getError('password-mismatch-error')).not.toBeVisible();
   });
 });
