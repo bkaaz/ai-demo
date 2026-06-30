@@ -64,4 +64,54 @@ test.describe('Settings', () => {
     await expect(settings.nameInput).toHaveValue('John Doe');
     await expect(settings.emailInput).toHaveValue('john@example.com');
   });
+
+  test('should show phone pattern error for invalid input', async () => {
+    await settings.fillPhone('abc');
+    await settings.phoneInput.blur();
+    await settings.save();
+    await expect(settings.getError('phone-pattern-error')).toBeVisible();
+  });
+
+  test('should not show phone pattern error for valid input', async () => {
+    await settings.fillPhone('+48123456789');
+    await settings.phoneInput.blur();
+    await expect(settings.getError('phone-pattern-error')).not.toBeVisible();
+  });
+
+  test('should display bio character counter', async () => {
+    await expect(settings.bioCharCounter).toContainText('0/200');
+  });
+
+  test('should update bio character counter when typing', async () => {
+    await settings.fillBio('Hello');
+    await expect(settings.bioCharCounter).toContainText('5/200');
+  });
+
+  test('should show password minlength error', async () => {
+    await settings.fillNewPassword('short');
+    await settings.newPasswordInput.blur();
+    await settings.save();
+    await expect(settings.getError('new-password-minlength-error')).toBeVisible();
+  });
+
+  test('should show password mismatch error when passwords differ', async () => {
+    await settings.fillNewPassword('password123');
+    await settings.fillConfirmPassword('different456');
+    await settings.confirmPasswordInput.blur();
+    await expect(settings.getError('confirm-password-mismatch-error')).toBeVisible();
+  });
+
+  test('should not show mismatch error when passwords match', async () => {
+    await settings.fillNewPassword('samepassword');
+    await settings.fillConfirmPassword('samepassword');
+    await settings.confirmPasswordInput.blur();
+    await expect(settings.getError('confirm-password-mismatch-error')).not.toBeVisible();
+  });
+
+  test('should save successfully when password fields are empty', async () => {
+    await settings.fillName('Jane Doe');
+    await settings.save();
+    const snackbar = settings.page.locator('mat-snack-bar-container');
+    await expect(snackbar).toContainText('Settings saved successfully');
+  });
 });
